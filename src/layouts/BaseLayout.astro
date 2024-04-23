@@ -1,0 +1,50 @@
+---
+import Footer from "../components/Footer.astro";
+
+type Props = {
+  title?: string;
+  description?: string;
+};
+
+const { title = "系统工单", description = "追踪" } =
+  Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="msapplication-TileColor" content="#F46633" />
+    <meta name="theme-color" content="#202020" />
+    <meta name="color-scheme" content="dark" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+
+  <body >
+    <header>
+      <h1 class="middles">
+        Work Order Tracking Board
+      </h1>
+    </header>
+  
+        <main
+      >
+        <slot />
+      </main>
+      <Footer />
+    </div>
+  </body>
+</html>
+<style>
+
+  .middles{
+        text-align: center; /* 让文本居中显示 */
+      }
+  body{ background-color: #ffffff; /* 设置页面背景颜色为白色 */
+        color: #000000; /* 设置文本颜色为黑色 */},
+    
+</style>

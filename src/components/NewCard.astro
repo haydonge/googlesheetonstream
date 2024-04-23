@@ -1,0 +1,39 @@
+---
+// components/Card.astro
+type Props = {
+  data: {
+    name: string;
+    workorder: string;
+    owner: string;
+    startdate: Date;
+    days:number;
+  };
+};
+
+
+const {data} = Astro.props;
+---
+<div class="card">
+  <div class="title">Name: {data.name}</div>
+  <div>Workorder: {data.workorder}</div>
+  <div>Owner: {data.owner}</div>
+  <div>StartDate: {data.startdate}</div>
+  <div>CycleTiem: {data.days} days</div>
+</div>
+  <style>
+    .card {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      margin: 10px;
+      width: calc(33.33% - 20px); /* 让每个卡片在一行显示三个，减去margin的宽度 */
+      box-sizing: border-box;
+      background-color: #b6cf7a; /* 设置页面背景颜色为白色 */
+      color: #000000; /* 设置文本颜色为黑色 */}
+
+    }
+    .title {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+  </style>
