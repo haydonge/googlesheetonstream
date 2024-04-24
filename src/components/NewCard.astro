@@ -10,10 +10,11 @@ type Props = {
   };
 };
 
-
 const {data} = Astro.props;
+const cardStyle = data.days > 10 ? 'background-color: #ff6b6b;' : 'background-color: #b6cf7a;'; // 大于10天红色，否则绿色
+
 ---
-<div class="card">
+<div class="card" style={cardStyle} >
   <div class="title">Name: {data.name}</div>
   <div>Workorder: {data.workorder}</div>
   <div>Owner: {data.owner}</div>
@@ -28,7 +29,7 @@ const {data} = Astro.props;
       margin: 10px;
       width: calc(33.33% - 20px); /* 让每个卡片在一行显示三个，减去margin的宽度 */
       box-sizing: border-box;
-      background-color: #b6cf7a; /* 设置页面背景颜色为白色 */
+      /* background-color: #b6cf7a; 设置页面背景颜色为白色 */
       color: #000000; /* 设置文本颜色为黑色 */}
 
     }
