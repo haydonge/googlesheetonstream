@@ -1,0 +1,36 @@
+---
+type Props = {
+  data: {
+    name: string;
+    works: string;
+    startdate: Date;
+    days: number;
+  };
+};
+
+const { data } = Astro.props;
+const cardStyle = data.days > 10 ? 'bg-red-200' : 'bg-green-200'; // 使用 Tailwind 颜色类
+---
+
+<div class={`card ${cardStyle} shadow-md hover:shadow-xl transition-shadow duration-300`}>
+  <div class="title font-bold mb-2">申请人: {data.name}</div>
+  <div>治具名称: {data.works}</div>
+  <div>申请日期: {new Date(data.startdate).toLocaleDateString()}</div>
+  <div>持续天数: {data.days} days</div>
+</div>
+
+<style>
+  .card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    box-sizing: border-box;
+    color: #000000;
+  }
+
+  .title {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+</style>
