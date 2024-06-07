@@ -1,22 +1,33 @@
 ---
 type Props = {
   data: {
+    workorder:string;
     name: string;
     works: string;
     startdate: Date;
-    days: number;
+    enddate: Date;
   };
 };
 
 const { data } = Astro.props;
-const cardStyle = data.days > 10 ? 'bg-red-200' : 'bg-green-200'; // 使用 Tailwind 颜色类
+
+const startDate = new Date(data.startdate);
+const endDate = new Date(data.enddate);
+const timeDifference = endDate.getTime() - startDate.getTime();
+const dayDifference = timeDifference / (1000 * 3600 * 24);
+const currentDate = new Date ();
+const overdue = endDate < currentDate;
+
+
+const cardStyle = (dayDifference < 7) || overdue ? 'bg-red-200' : 'bg-green-200'; // 使用 Tailwind 颜色类
 ---
 
 <div class={`card ${cardStyle} shadow-md hover:shadow-xl transition-shadow duration-300`}>
   <div class="title font-bold mb-2">申请人: {data.name}</div>
+  <div>工单号码:{data.workorder}</div>
   <div>治具名称: {data.works}</div>
   <div>申请日期: {new Date(data.startdate).toLocaleDateString()}</div>
-  <div>持续天数: {data.days} days</div>
+  <div>需求日期: {new Date(data.enddate).toLocaleDateString()}</div>
 </div>
 
 <style>
