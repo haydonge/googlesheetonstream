@@ -1,6 +1,5 @@
 ---
 import type { APIRoute } from "astro";
-import WorkCard from "../components/WorkCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import AutoWorkCard from "../components/AutoWorkCard.astro";
 
@@ -28,10 +27,10 @@ const filteredData = data.filter((item:any) => item.Status==="On Going"||item.St
     startdate:item.StartDate,
     enddate:item.DueDate,
     status:item.Status,
-
+    priority:item.Priority,
   }));
 
-  // console.log(filteredData);
+  console.log(data);
 
   if (!data) {
     return {
