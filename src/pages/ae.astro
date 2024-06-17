@@ -21,6 +21,7 @@ const filteredData = data.filter((item:any) => item.完成状态==="未完成").
     works: item.治具名称,
     startdate:item.申请日期,
     enddate:item.需求日期,
+    priority:item.优先,
   }));
   if (!data) {
     return {
