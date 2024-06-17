@@ -32,9 +32,9 @@ const cardStyle = (dayDifference < 3) || overdue ? 'bg-red-200' : 'bg-green-200'
   <div class="title font-bold mb-2">申请人: {data.requestor}</div>
   <div>工单号码:{data.workorder}</div>
   <div>week:{data.week}</div>
-  <div>需求者：{data.requestor}</div>
+  <div>责任人：{data.owner}</div>
   <div>客户： {data.customer}</div>
-  <div>治具名称: {data.works}</div>
+  <div>任务: {data.works}</div>
   <div>申请日期: {new Date(data.startdate).toLocaleDateString()}</div>
   <div>需求日期: {new Date(data.enddate).toLocaleDateString()}</div>
   <div>状态：{data.status}</div>
