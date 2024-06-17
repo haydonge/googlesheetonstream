@@ -15,14 +15,24 @@ export const GET: APIRoute = (data) => {
   );
 };
 
-const filteredData = data.filter((item:any) => item.完成状态==="未完成").map((item: any) => ({
+const filteredData = data.filter((item:any) => item.完成状态==="未完成"&& item.急单==="急").map((item: any) => ({
     workorder:item.工单号,
     name: item.申请人,
     works: item.治具名称,
     startdate:item.申请日期,
     enddate:item.需求日期,
-    priority:item.优先,
+    priority:item.急单,
   }));
+
+  const filteredData2 = data.filter((item:any) => item.完成状态==="未完成"&& item.急单!=="急").map((item: any) => ({
+    workorder:item.工单号,
+    name: item.申请人,
+    works: item.治具名称,
+    startdate:item.申请日期,
+    enddate:item.需求日期,
+    priority:item.急单,
+  }));
+
   if (!data) {
     return {
       status: 404,
@@ -37,6 +47,11 @@ const filteredData = data.filter((item:any) => item.完成状态==="未完成").
      {
      filteredData.map((data:any) => (<WorkCard data={data} />
      ))}
+     {
+     
+     filteredData2.map((data2:any) => (<WorkCard data={data2} />
+     ))
+     }
 
     
    </main>

@@ -31,7 +31,7 @@ const showLogo = data.priority === "急"; // 判断是否显示 logo
 <div class={`card ${cardStyle} shadow-md hover:shadow-xl transition-shadow duration-300 relative`}>
   {showLogo && (
     <div class="absolute top-0 right-0 m-1">
-      <Icon name="logo" size={40}/>
+      <Icon name="logo23" size={80} class="text-red-500" />
     </div>
   )}
   <div class="title font-bold mb-2">申请人: {data.requestor}</div>
