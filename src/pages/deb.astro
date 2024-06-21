@@ -117,7 +117,7 @@ if (!data) {
         const overdue = endDate < currentDate;
 
         const cardBaseStyle = 'card border border-gray-300 rounded p-2.5 m-2.5 text-black';
-        const cardDynamicStyle = (dayDifference < 3) || overdue ? 'bg-red-200' : 'bg-green-200';
+        const cardDynamicStyle = (dayDifference < 7) || overdue ? 'bg-red-200' : 'bg-green-200';
         const cardStyle = `${cardBaseStyle} ${cardDynamicStyle}`;
 
         this.innerHTML = `
