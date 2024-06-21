@@ -14,9 +14,19 @@ export const GET: APIRoute = () => {
   );
 };
 
-const filterData = (data, isUrgent) =>
-  data.filter((item) => item.完成状态 === "未完成" && (isUrgent ? item.急单 === "急" : item.急单 !== "急"))
-      .map((item) => ({
+type DataItem = {
+  工单号: string;
+  申请人: string;
+  治具名称: string;
+  申请日期: string;
+  需求日期: string;
+  急单: string;
+  完成状态: string;
+};
+
+const filterData = (data: DataItem[], isUrgent: boolean) =>
+  data.filter(item => item.完成状态 === "未完成" && (isUrgent ? item.急单 === "急" : item.急单 !== "急"))
+      .map(item => ({
         workorder: item.工单号,
         name: item.申请人,
         works: item.治具名称,
@@ -29,9 +39,9 @@ const filteredData = filterData(data, true);
 const filteredData2 = filterData(data, false);
 
 const allFilteredData = [...filteredData, ...filteredData2];
+const sortByEndDate = (a: { enddate: string }, b: { enddate: string }) => new Date(a.enddate).getTime() - new Date(b.enddate).getTime();
+const sortByPriority = (a: { priority: string }, b: { priority: string }) => (b.priority === "急" ? 1 : -1);
 
-const sortByEndDate = (a, b) => new Date(a.enddate) - new Date(b.enddate);
-const sortByPriority = (a, b) => (b.priority === "急" ? 1 : -1);
 
 const sortedByEndDate = [...allFilteredData].sort(sortByEndDate);
 const sortedByPriority = [...allFilteredData].sort(sortByPriority);
@@ -57,7 +67,7 @@ if (!data) {
     </main>
   </div>
 
-  <script define:vars={{ sortedByEndDate, sortedByPriority }}>
+  <script is:inline define:vars={{ sortedByEndDate, sortedByPriority }}>
     let currentSort = 'priority';
 
     function renderTasks(tasks) {
@@ -105,19 +115,15 @@ if (!data) {
         const dayDifference = timeDifference / (1000 * 3600 * 24);
         const currentDate = new Date();
         const overdue = endDate < currentDate;
-        // const cardStyle = (dayDifference < 3) || overdue ? 'bg-red-200 mx-3' : 'bg-green-200 ';
 
         const cardBaseStyle = 'card border border-gray-300 rounded p-2.5 m-2.5 text-black';
-const cardDynamicStyle = (dayDifference < 3) || overdue ? 'bg-red-200' : 'bg-green-200';
-const cardStyle = `${cardBaseStyle} ${cardDynamicStyle}`;
-
-
-        const showLogo = data.priority === "急";
+        const cardDynamicStyle = (dayDifference < 3) || overdue ? 'bg-red-200' : 'bg-green-200';
+        const cardStyle = `${cardBaseStyle} ${cardDynamicStyle}`;
 
         this.innerHTML = `
-          <div class="card ${cardStyle} shadow-md hover:shadow-xl transition-shadow duration-300 relative">
-           ${showLogo ? '<div class="absolute top-0 right-0 m-1 logo-container"><img src="logo23.svg" alt="Logo" width="60" height="60" class="logo-red" /></div>' : ''}
-            <div class="title font-bold mb-2">申请人: ${data.name}</div>
+          <div class="${cardStyle} shadow-md hover:shadow-xl transition-shadow duration-300 relative">
+            ${data.priority === "急" ? '<div class="absolute top-0 right-0 m-1 logo-container bg-transparent"><img src="logo23.svg" alt="Logo" width="60" height="60" class="logo-red" /></div>' : ''}
+            <div class="title font-bold mb-1.25">申请人: ${data.name}</div>
             <div>申请日期: ${startDate.toLocaleDateString()}</div>
             <div>需求日期: ${endDate.toLocaleDateString()}</div>
             <div>工单号码: ${data.workorder}</div>
@@ -127,15 +133,11 @@ const cardStyle = `${cardBaseStyle} ${cardDynamicStyle}`;
 
         const style = document.createElement('style');
         style.textContent = `
-  .logo-red {
-    filter: invert(24%) sepia(87%) saturate(7474%) hue-rotate(359deg) brightness(102%) contrast(104%);
-  }
-`;
-document.head.appendChild(style);
-
-
-
-
+          .logo-red {
+            filter: invert(24%) sepia(87%) saturate(7474%) hue-rotate(359deg) brightness(102%) contrast(104%);
+          }
+        `;
+        document.head.appendChild(style);
       }
     }
 
